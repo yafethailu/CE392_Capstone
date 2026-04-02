@@ -36,9 +36,6 @@ In electronic markets, decisions often depend on **very fast** updates of the be
 4. **Verification:** bit- or tolerance-compare against a **C or Python reference** on the same inputs.
 5. **Evaluation:** report **latency in clock cycles**, **throughput** (ticks per second at target Fmax), and **ALMs/LEs, registers, memory bits**.
 
-### Why it fits “HFT-adjacent”
-
-Top-of-book features are a standard building block in **market microstructure** and **execution**. The project stays clear of real exchange protocols and proprietary signals.
 
 ---
 
