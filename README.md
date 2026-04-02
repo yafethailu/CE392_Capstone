@@ -14,7 +14,6 @@ This document collects project directions: they are meant for a **senior capston
 |-------------|-------------|
 | ~10 weeks | One focused subsystem, not a full exchange stack |
 | Small FPGA | Avoid full TCP, deep L2 books, PCIe DMA unless the course provides a reference design |
-| Altera/Intel | Use **Quartus** for synthesis; **Vivado** is for Xilinx boards only |
 
 **Reasonable deliverables:** synthesizable RTL, simulation testbenches, timing/resource report, optional live demo (UART, GPIO, hex displays), and a short comparison to a **software gold model** (e.g. C or Python).
 
