@@ -4,9 +4,7 @@ Capstone FPGA project for CE 392 -- Northwestern University
 
 # FPGA × Low-Latency Trading — Capstone Project Ideas
 
-This document collects **course-safe** project directions: they are meant for a **senior capstone** (~10 weeks), a **small Intel/Altera FPGA board**, and tools such as **Quartus**, **ModelSim** (or Questa), plus any software you like for reference models and host I/O.
-
-**Important:** These ideas are **generic** teaching and research prototypes. They do **not** assume employer-specific code, data, or production feed formats. If your institution requires separation from internship or employer IP, state explicitly that you use **synthetic protocols and formulas** defined for the project.
+This document collects project directions: they are meant for a **senior capstone** (~10 weeks), a **small Intel/Altera FPGA board**, and tools such as **Vivado**, **Quartus**, **ModelSim** (or Questa), plus any software you like for reference models and host I/O.
 
 ---
 
