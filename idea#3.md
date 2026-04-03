@@ -1,7 +1,4 @@
 # Low-Latency FPGA Index Engine from Replayed Market Data
-
-This README describes a **single recommended** senior capstone (~**10 weeks**), sized for a **small Intel/Altera FPGA** and tools such as **Quartus** and **ModelSim** (or Questa). A shorter **appendix** lists alternative directions if your advisor prefers a different emphasis.
-
 ---
 
 ## Title
