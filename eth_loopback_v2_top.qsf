@@ -1,0 +1,148 @@
+# eth_loopback_v2_top.qsf
+# Quartus Settings File for Ethernet loopback test using alexforencich's MAC.
+#
+# IMPORTANT: Verify these pin assignments against the official Terasic DE2-115
+# pin assignment file. The values here are the standard rev-B/rev-C board
+# pinout but board revisions can differ.
+
+# ── Project / device ─────────────────────────────────────────────────────
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE115F29C7
+set_global_assignment -name TOP_LEVEL_ENTITY eth_loopback_v2_top
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+
+# ── Files: your top + sniffer ────────────────────────────────────────────
+set_global_assignment -name VERILOG_FILE eth_loopback_v2_top.v
+set_global_assignment -name SDC_FILE     eth_loopback_v2_top.sdc
+
+# ── Files: alexforencich's MAC and dependencies ──────────────────────────
+# Adjust paths to wherever you cloned the repo. Default assumes you cloned
+# verilog-ethernet/ alongside this project directory.
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/eth_mac_mii_fifo.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/eth_mac_mii.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/axis_gmii_rx.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/axis_gmii_tx.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/axis_eth_fcs.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/axis_eth_fcs_check.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/axis_eth_fcs_insert.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/lfsr.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/mii_phy_if.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/ssio_sdr_in.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/rtl/ssio_sdr_out.v
+
+# AXI Stream FIFO dependencies (from the lib/axis submodule)
+set_global_assignment -name VERILOG_FILE verilog-ethernet/lib/axis/rtl/axis_async_fifo.v
+set_global_assignment -name VERILOG_FILE verilog-ethernet/lib/axis/rtl/axis_async_fifo_adapter.v
+
+# ── Clock ────────────────────────────────────────────────────────────────
+set_location_assignment PIN_Y2  -to CLOCK_50
+
+# ── Keys ─────────────────────────────────────────────────────────────────
+set_location_assignment PIN_M23 -to KEY[0]
+set_location_assignment PIN_M21 -to KEY[1]
+set_location_assignment PIN_N21 -to KEY[2]
+set_location_assignment PIN_R24 -to KEY[3]
+
+# ── ENET0 MII RX pins ────────────────────────────────────────────────────
+set_location_assignment PIN_A3  -to ENET0_RX_CLK
+set_location_assignment PIN_C3  -to ENET0_RX_DV
+set_location_assignment PIN_B2  -to ENET0_RXD[0]
+set_location_assignment PIN_B3  -to ENET0_RXD[1]
+set_location_assignment PIN_E4  -to ENET0_RXD[2]
+set_location_assignment PIN_D3  -to ENET0_RXD[3]
+set_location_assignment PIN_D2  -to ENET0_RX_ER
+
+# ── ENET0 MII TX pins ────────────────────────────────────────────────────
+set_location_assignment PIN_B17 -to ENET0_TX_CLK
+set_location_assignment PIN_A19 -to ENET0_TX_EN
+set_location_assignment PIN_C18 -to ENET0_TXD[0]
+set_location_assignment PIN_D19 -to ENET0_TXD[1]
+set_location_assignment PIN_A18 -to ENET0_TXD[2]
+set_location_assignment PIN_B18 -to ENET0_TXD[3]
+
+# ── ENET0 control pins ───────────────────────────────────────────────────
+set_location_assignment PIN_C5  -to ENET0_RST_N
+set_location_assignment PIN_C6  -to ENET0_MDC
+set_location_assignment PIN_B6  -to ENET0_MDIO
+
+# ── LEDs ─────────────────────────────────────────────────────────────────
+set_location_assignment PIN_G19 -to LEDR[0]
+set_location_assignment PIN_F19 -to LEDR[1]
+set_location_assignment PIN_E19 -to LEDR[2]
+set_location_assignment PIN_F21 -to LEDR[3]
+set_location_assignment PIN_F18 -to LEDR[4]
+set_location_assignment PIN_E18 -to LEDR[5]
+set_location_assignment PIN_J19 -to LEDR[6]
+set_location_assignment PIN_H19 -to LEDR[7]
+set_location_assignment PIN_J17 -to LEDR[8]
+set_location_assignment PIN_G17 -to LEDR[9]
+set_location_assignment PIN_J15 -to LEDR[10]
+set_location_assignment PIN_H16 -to LEDR[11]
+set_location_assignment PIN_J16 -to LEDR[12]
+set_location_assignment PIN_H17 -to LEDR[13]
+set_location_assignment PIN_F15 -to LEDR[14]
+set_location_assignment PIN_G15 -to LEDR[15]
+set_location_assignment PIN_G16 -to LEDR[16]
+set_location_assignment PIN_H15 -to LEDR[17]
+
+# ── HEX displays ─────────────────────────────────────────────────────────
+set_location_assignment PIN_G18 -to HEX0[0]
+set_location_assignment PIN_F22 -to HEX0[1]
+set_location_assignment PIN_E17 -to HEX0[2]
+set_location_assignment PIN_L26 -to HEX0[3]
+set_location_assignment PIN_L25 -to HEX0[4]
+set_location_assignment PIN_J22 -to HEX0[5]
+set_location_assignment PIN_H22 -to HEX0[6]
+
+set_location_assignment PIN_M24 -to HEX1[0]
+set_location_assignment PIN_Y22 -to HEX1[1]
+set_location_assignment PIN_W21 -to HEX1[2]
+set_location_assignment PIN_W22 -to HEX1[3]
+set_location_assignment PIN_W25 -to HEX1[4]
+set_location_assignment PIN_U23 -to HEX1[5]
+set_location_assignment PIN_U24 -to HEX1[6]
+
+set_location_assignment PIN_AA25 -to HEX2[0]
+set_location_assignment PIN_AA26 -to HEX2[1]
+set_location_assignment PIN_Y25  -to HEX2[2]
+set_location_assignment PIN_W26  -to HEX2[3]
+set_location_assignment PIN_Y26  -to HEX2[4]
+set_location_assignment PIN_W27  -to HEX2[5]
+set_location_assignment PIN_W28  -to HEX2[6]
+
+set_location_assignment PIN_V21  -to HEX3[0]
+set_location_assignment PIN_U21  -to HEX3[1]
+set_location_assignment PIN_AB20 -to HEX3[2]
+set_location_assignment PIN_AA21 -to HEX3[3]
+set_location_assignment PIN_AD24 -to HEX3[4]
+set_location_assignment PIN_AF23 -to HEX3[5]
+set_location_assignment PIN_Y19  -to HEX3[6]
+
+set_location_assignment PIN_AB19 -to HEX4[0]
+set_location_assignment PIN_AA19 -to HEX4[1]
+set_location_assignment PIN_AG21 -to HEX4[2]
+set_location_assignment PIN_AH21 -to HEX4[3]
+set_location_assignment PIN_AE19 -to HEX4[4]
+set_location_assignment PIN_AF19 -to HEX4[5]
+set_location_assignment PIN_AE18 -to HEX4[6]
+
+set_location_assignment PIN_AD18 -to HEX5[0]
+set_location_assignment PIN_AC18 -to HEX5[1]
+set_location_assignment PIN_AB18 -to HEX5[2]
+set_location_assignment PIN_AH19 -to HEX5[3]
+set_location_assignment PIN_AG19 -to HEX5[4]
+set_location_assignment PIN_AF20 -to HEX5[5]
+set_location_assignment PIN_AG20 -to HEX5[6]
+
+# ── I/O standards ────────────────────────────────────────────────────────
+set_instance_assignment -name IO_STANDARD "2.5 V" -to ENET0_*
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to CLOCK_50
+set_instance_assignment -name IO_STANDARD "2.5 V" -to KEY[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to LEDR[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX0[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX1[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX2[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX3[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX4[*]
+set_instance_assignment -name IO_STANDARD "2.5 V" -to HEX5[*]
