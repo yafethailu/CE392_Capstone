@@ -31,7 +31,7 @@ module eth_loopback_v2_top (
     // ENET0 MII RX pins
     input  wire        ENET0_RX_CLK,
     input  wire        ENET0_RX_DV,
-    input  wire [3:0]  ENET0_RXD,
+    input  wire [3:0]  ENET0_RX_DATA,
     input  wire        ENET0_RX_ER,
 
     // ENET0 MII TX pins (required by eth_mac_mii_fifo even if we don't TX)
@@ -112,7 +112,7 @@ module eth_loopback_v2_top (
 
     eth_mac_mii_fifo #(
         .TARGET("ALTERA"),                  // synthesize for Altera/Intel
-        .CLOCK_INPUT_STYLE("BUFR"),         // input clock buffer style
+        .CLOCK_INPUT_STYLE("GLOBAL"),         // input clock buffer style, CHANGES FROM "BUFR" TO GLOBAL
         .AXIS_DATA_WIDTH(8),
         .ENABLE_PADDING(1),
         .MIN_FRAME_LENGTH(64),
@@ -143,11 +143,11 @@ module eth_loopback_v2_top (
 
         // MII PHY interface
         .mii_rx_clk(ENET0_RX_CLK),
-        .mii_rxd(ENET0_RXD),
+        .mii_rxd(ENET0_RX_DATA),
         .mii_rx_dv(ENET0_RX_DV),
         .mii_rx_er(ENET0_RX_ER),
         .mii_tx_clk(ENET0_TX_CLK),
-        .mii_txd(ENET0_TXD),
+        .mii_txd(ENET0_TX_DATA),
         .mii_tx_en(ENET0_TX_EN),
         .mii_tx_er(),                       // not used
 
