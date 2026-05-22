@@ -1,9 +1,7 @@
 // de2_115_top.v
-// Board-level top for Terasic DE2-115 (Cyclone IV E).
-// Physical mapping of the DE2-115 port names onto market top module.
+// Board-level top for  DE2-115 (Cyclone IV E)
 //
-// UART source: connect an FTDI USB-UART adapter to GPIO_0[0] (RX from PC),
-// or use the onboard RS-232 UART_RXD pin - select below.
+// works with UART for now
 
 module de2_115_top (
     input  wire        CLOCK_50,
