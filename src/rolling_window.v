@@ -1,9 +1,8 @@
 // rolling_window_stats.v
-// Circular-buffer rolling window.  Tracks a WINDOW_SIZE (power-of-2) history
-// of signed samples and emits mean, velocity (1-step delta), and deviation.
+// Circular-buffer rolling window.  Tracks a power of 2 (for free division) WINDOW_SIZE history
+// of signed samples and emits mean, velocity (1 step delta), and deviation.
 //
-// WINDOW_SIZE must be a power of two so division is a free right-shift.
-// Inputs: data_in carries the per-update delta_index from index_engine_core.
+// Inputs: data_in carries the per update delta_index from index_engine_core.
 
 module rolling_window_stats #(
     parameter DATA_WIDTH  = 64,
