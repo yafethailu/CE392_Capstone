@@ -9,8 +9,7 @@
 //
 // SCALE_SHIFT must equal log2(sum of weights). With weights summing to
 // 2^14 = 16384, SCALE_SHIFT = 14. Divide-by-scale becomes a free shift on
-// the FPGA, which is critical for meeting timing at 50 MHz on Cyclone IV.
-// -----------------------------------------------------------------------------
+// the FPGA, good to meet timing
 
 module index_engine_core #(
     parameter PRICE_WIDTH  = 20,
@@ -18,11 +17,11 @@ module index_engine_core #(
     parameter INDEX_WIDTH  = 64,
     parameter SCALE_SHIFT  = 14
 )(
-    input  wire                          clk,
-    input  wire                          rst,
-    input  wire                          valid_in,
-    input  wire [PRICE_WIDTH-1:0]        bid,
-    input  wire [PRICE_WIDTH-1:0]        ask,
+    input  wire clk,
+    input  wire rst,
+    input  wire valid_in,
+    input  wire [PRICE_WIDTH-1:0] bid,
+    input  wire [PRICE_WIDTH-1:0] ask,
     input  wire [PRICE_WIDTH-1:0]        prev_mid,
     input  wire [WEIGHT_WIDTH-1:0]       weight,
     output reg  [PRICE_WIDTH-1:0]        new_mid,
