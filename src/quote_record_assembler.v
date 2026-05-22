@@ -1,6 +1,5 @@
-// quote_record_assembler.v   (path B: XDP-derived 7-byte UART frames)
-// -----------------------------------------------------------------------------
-// Wire frame coming from uart_replay.py / xdp_quote_parser_fpga.py:
+// quote_record_assembler.v   (XDP-derived 7-byte UART frames)
+// Wire frame coming from xdp_quote_parser_fpga.py:
 //
 //     [byte 0] 0xAA                        sync marker
 //     [byte 1] {4'b0, sym[3:0]}            high nibble is zero pad
@@ -23,12 +22,6 @@
 //     COLLECT_6 : shift the next 6 bytes MSB-first into shift_reg.
 //                 On the 6th byte, emit record_out + record_valid pulse.
 //                 Then go back to HUNT_SYNC and re-confirm next sync.
-//
-// Why we go back to HUNT_SYNC instead of "expect AA next, else drift":
-//   We want self-recovery if a byte ever gets dropped/corrupted on the wire.
-//   The cost is one wasted byte per record (the 0xAA itself), but at 115200
-//   baud with 7-byte records we're already comfortably below line rate, so
-//   simplicity wins.
 //
 // Debug outputs:
 //   state_o            : current FSM state (for HEX/LED inspection)
