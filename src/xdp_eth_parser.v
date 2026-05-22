@@ -1,10 +1,5 @@
 // xdp_eth_parser.v
 // Synthesizable RTL: Ethernet/VLAN/IP/UDP/XDP parser
-// Fixes applied:
-//   1. VLAN inner EtherType: store byte16 in register, compare at byte17
-//   2. msg_type: store low byte in register, combine combinationally at byte3
-//   3. ETH_HDR state: no duplicate case entries
-
 module xdp_eth_parser #(
     parameter ORDER_BITS  = 14,
     parameter SYM_COUNT   = 10,
