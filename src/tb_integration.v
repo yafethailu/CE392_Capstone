@@ -1,12 +1,7 @@
 // tb_integration.v
 // -----------------------------------------------------------------------------
-// Integration testbench for market_sentinel_top's data path.
+// Integration testbench for m1_top's data path.
 //
-// We don't go through UART. Instead, we instantiate burst_fifo, weights_rom,
-// symbol_state_mem, index_engine_core, rolling_window_stats, threshold_comparator
-// directly, and run the SAME 7-state FSM controller that lives inside
-// market_sentinel_top. If this passes, the integration in the real top is
-// also correct.
 //
 // Tests:
 //   1) Single record (AAPL) -> expected index_value from golden model
