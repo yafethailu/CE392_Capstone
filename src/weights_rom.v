@@ -1,10 +1,9 @@
 // weights_rom.v
 // -----------------------------------------------------------------------------
-// Per-symbol weight lookup. Weights are normalized so that they sum to
+// symbol weight lookup. Weights are normalized so that they sum to
 // 2^14 = 16384, matching SCALE_SHIFT=14 in index_engine_core.
 //
-// SYMBOLS ARE 0-INDEXED (matches partner's market_sentinel_top FSM, which
-// converts incoming wire symbol_id 1..10 to addresses 0..9 via -1):
+// SYMBOLS ARE 0 indexed
 //   AAPL=0, TSLA=1, GOOGL=2, NFLX=3, NVDA=4,
 //   MRVL=5, AMD=6,  QCOM=7,  MSFT=8, PLTR=9.
 //
