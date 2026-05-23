@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat May 23 14:12:56 2026
+Quartus Prime Version : 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+Revision Name : eth_loopback_test
+Top-level Entity Name : xdp_loopback_test
+Family : Cyclone IV E
+Total logic elements : 24,186
+    Total combinational functions : 11,402
+    Dedicated logic registers : 13,711
+Total registers : 13711
+Total pins : 83
+Total virtual pins : 0
+Total memory bits : 5,120
+Embedded Multiplier 9-bit elements : 4
+Total PLLs : 0

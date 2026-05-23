@@ -1,0 +1,1405 @@
+Analysis & Synthesis report for eth_loopback_test
+Sat May 23 14:12:57 2026
+Quartus Prime Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Analysis & Synthesis Summary
+  3. Analysis & Synthesis Settings
+  4. Parallel Compilation
+  5. Analysis & Synthesis Source Files Read
+  6. Analysis & Synthesis Resource Usage Summary
+  7. Analysis & Synthesis Resource Utilization by Entity
+  8. Analysis & Synthesis RAM Summary
+  9. Analysis & Synthesis DSP Block Usage Summary
+ 10. State Machine - |xdp_loopback_test|xdp_eth_parser:u_parser|state
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Registers Added for RAM Pass-Through Logic
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for burst_fifo:u_fifo|altsyncram:mem_rtl_0|altsyncram_uvg1:auto_generated
+ 17. Parameter Settings for User Entity Instance: xdp_eth_parser:u_parser
+ 18. Parameter Settings for User Entity Instance: burst_fifo:u_fifo
+ 19. Parameter Settings for Inferred Entity Instance: burst_fifo:u_fifo|altsyncram:mem_rtl_0
+ 20. Parameter Settings for Inferred Entity Instance: xdp_eth_parser:u_parser|lpm_mult:Mult0
+ 21. altsyncram Parameter Settings by Entity Instance
+ 22. lpm_mult Parameter Settings by Entity Instance
+ 23. Port Connectivity Checks: "burst_fifo:u_fifo"
+ 24. Port Connectivity Checks: "xdp_eth_parser:u_parser"
+ 25. Post-Synthesis Netlist Statistics for Top Partition
+ 26. Elapsed Time Per Partition
+ 27. Analysis & Synthesis Messages
+ 28. Analysis & Synthesis Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2025  Altera Corporation. All rights reserved.
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, the Altera Quartus Prime License Agreement,
+the Altera IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Altera and sold by Altera or its authorized distributors.  Please
+refer to the Altera Software License Subscription Agreements 
+on the Quartus Prime software download page.
+
+
+
++--------------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                         ;
++------------------------------------+-------------------------------------------------+
+; Analysis & Synthesis Status        ; Successful - Sat May 23 14:12:56 2026           ;
+; Quartus Prime Version              ; 24.1std.0 Build 1077 03/04/2025 SC Lite Edition ;
+; Revision Name                      ; eth_loopback_test                               ;
+; Top-level Entity Name              ; xdp_loopback_test                               ;
+; Family                             ; Cyclone IV E                                    ;
+; Total logic elements               ; 24,186                                          ;
+;     Total combinational functions  ; 11,402                                          ;
+;     Dedicated logic registers      ; 13,711                                          ;
+; Total registers                    ; 13711                                           ;
+; Total pins                         ; 83                                              ;
+; Total virtual pins                 ; 0                                               ;
+; Total memory bits                  ; 5,120                                           ;
+; Embedded Multiplier 9-bit elements ; 4                                               ;
+; Total PLLs                         ; 0                                               ;
++------------------------------------+-------------------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Settings                                                                              ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Option                                                           ; Setting            ; Default Value      ;
++------------------------------------------------------------------+--------------------+--------------------+
+; Device                                                           ; EP4CE115F29C7      ;                    ;
+; Top-level entity name                                            ; xdp_loopback_test  ; eth_loopback_test  ;
+; Family name                                                      ; Cyclone IV E       ; Cyclone V          ;
+; Use smart compilation                                            ; On                 ; Off                ;
+; Maximum processors allowed for parallel compilation              ; All                ;                    ;
+; Enable parallel Assembler and Timing Analyzer during compilation ; On                 ; On                 ;
+; Enable compact report table                                      ; Off                ; Off                ;
+; Restructure Multiplexers                                         ; Auto               ; Auto               ;
+; Create Debugging Nodes for IP Cores                              ; Off                ; Off                ;
+; Preserve fewer node names                                        ; On                 ; On                 ;
+; Intel FPGA IP Evaluation Mode                                    ; Enable             ; Enable             ;
+; Verilog Version                                                  ; Verilog_2001       ; Verilog_2001       ;
+; VHDL Version                                                     ; VHDL_1993          ; VHDL_1993          ;
+; State Machine Processing                                         ; Auto               ; Auto               ;
+; Safe State Machine                                               ; Off                ; Off                ;
+; Extract Verilog State Machines                                   ; On                 ; On                 ;
+; Extract VHDL State Machines                                      ; On                 ; On                 ;
+; Ignore Verilog initial constructs                                ; Off                ; Off                ;
+; Iteration limit for constant Verilog loops                       ; 5000               ; 5000               ;
+; Iteration limit for non-constant Verilog loops                   ; 250                ; 250                ;
+; Add Pass-Through Logic to Inferred RAMs                          ; On                 ; On                 ;
+; Infer RAMs from Raw Logic                                        ; On                 ; On                 ;
+; Parallel Synthesis                                               ; On                 ; On                 ;
+; DSP Block Balancing                                              ; Auto               ; Auto               ;
+; NOT Gate Push-Back                                               ; On                 ; On                 ;
+; Power-Up Don't Care                                              ; On                 ; On                 ;
+; Remove Redundant Logic Cells                                     ; Off                ; Off                ;
+; Remove Duplicate Registers                                       ; On                 ; On                 ;
+; Ignore CARRY Buffers                                             ; Off                ; Off                ;
+; Ignore CASCADE Buffers                                           ; Off                ; Off                ;
+; Ignore GLOBAL Buffers                                            ; Off                ; Off                ;
+; Ignore ROW GLOBAL Buffers                                        ; Off                ; Off                ;
+; Ignore LCELL Buffers                                             ; Off                ; Off                ;
+; Ignore SOFT Buffers                                              ; On                 ; On                 ;
+; Limit AHDL Integers to 32 Bits                                   ; Off                ; Off                ;
+; Optimization Technique                                           ; Balanced           ; Balanced           ;
+; Carry Chain Length                                               ; 70                 ; 70                 ;
+; Auto Carry Chains                                                ; On                 ; On                 ;
+; Auto Open-Drain Pins                                             ; On                 ; On                 ;
+; Perform WYSIWYG Primitive Resynthesis                            ; Off                ; Off                ;
+; Auto ROM Replacement                                             ; On                 ; On                 ;
+; Auto RAM Replacement                                             ; On                 ; On                 ;
+; Auto DSP Block Replacement                                       ; On                 ; On                 ;
+; Auto Shift Register Replacement                                  ; Auto               ; Auto               ;
+; Allow Shift Register Merging across Hierarchies                  ; Auto               ; Auto               ;
+; Auto Clock Enable Replacement                                    ; On                 ; On                 ;
+; Strict RAM Replacement                                           ; Off                ; Off                ;
+; Allow Synchronous Control Signals                                ; On                 ; On                 ;
+; Force Use of Synchronous Clear Signals                           ; Off                ; Off                ;
+; Auto RAM Block Balancing                                         ; On                 ; On                 ;
+; Auto RAM to Logic Cell Conversion                                ; Off                ; Off                ;
+; Auto Resource Sharing                                            ; Off                ; Off                ;
+; Allow Any RAM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any ROM Size For Recognition                               ; Off                ; Off                ;
+; Allow Any Shift Register Size For Recognition                    ; Off                ; Off                ;
+; Use LogicLock Constraints during Resource Balancing              ; On                 ; On                 ;
+; Ignore translate_off and synthesis_off directives                ; Off                ; Off                ;
+; Timing-Driven Synthesis                                          ; On                 ; On                 ;
+; Report Parameter Settings                                        ; On                 ; On                 ;
+; Report Source Assignments                                        ; On                 ; On                 ;
+; Report Connectivity Checks                                       ; On                 ; On                 ;
+; Ignore Maximum Fan-Out Assignments                               ; Off                ; Off                ;
+; Synchronization Register Chain Length                            ; 2                  ; 2                  ;
+; Power Optimization During Synthesis                              ; Normal compilation ; Normal compilation ;
+; HDL message level                                                ; Level2             ; Level2             ;
+; Suppress Register Optimization Related Messages                  ; Off                ; Off                ;
+; Number of Removed Registers Reported in Synthesis Report         ; 5000               ; 5000               ;
+; Number of Swept Nodes Reported in Synthesis Report               ; 5000               ; 5000               ;
+; Number of Inverted Registers Reported in Synthesis Report        ; 100                ; 100                ;
+; Clock MUX Protection                                             ; On                 ; On                 ;
+; Auto Gated Clock Conversion                                      ; Off                ; Off                ;
+; Block Design Naming                                              ; Auto               ; Auto               ;
+; SDC constraint protection                                        ; Off                ; Off                ;
+; Synthesis Effort                                                 ; Auto               ; Auto               ;
+; Shift Register Replacement - Allow Asynchronous Clear Signal     ; On                 ; On                 ;
+; Pre-Mapping Resynthesis Optimization                             ; Off                ; Off                ;
+; Analysis & Synthesis Message Level                               ; Medium             ; Medium             ;
+; Disable Register Merging Across Hierarchies                      ; Auto               ; Auto               ;
+; Resource Aware Inference For Block RAM                           ; On                 ; On                 ;
++------------------------------------------------------------------+--------------------+--------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 12          ;
+;                            ;             ;
+; Average used               ; 1.02        ;
+; Maximum used               ; 12          ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.2%      ;
+;     Processor 3            ;   0.2%      ;
+;     Processor 4            ;   0.2%      ;
+;     Processor 5            ;   0.2%      ;
+;     Processor 6            ;   0.2%      ;
+;     Processor 7            ;   0.2%      ;
+;     Processor 8            ;   0.2%      ;
+;     Processors 9-12        ;   0.1%      ;
++----------------------------+-------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                            ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
+; rtl/xdp_loopback_test.v          ; yes             ; User Verilog HDL File        ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v    ;         ;
+; rtl/xdp_eth_parser.v             ; yes             ; User Verilog HDL File        ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v       ;         ;
+; rtl/eth_mac_bridge.v             ; yes             ; User Verilog HDL File        ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/eth_mac_bridge.v       ;         ;
+; rtl/burst_fifo.v                 ; yes             ; User Verilog HDL File        ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/burst_fifo.v           ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
+; aglobal241.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/aglobal241.inc        ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/altrom.inc            ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/altram.inc            ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/altdpram.inc          ;         ;
+; db/altsyncram_uvg1.tdf           ; yes             ; Auto-Generated Megafunction  ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/db/altsyncram_uvg1.tdf     ;         ;
+; lpm_mult.tdf                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/lpm_mult.tdf          ;         ;
+; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/lpm_add_sub.inc       ;         ;
+; multcore.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/multcore.inc          ;         ;
+; bypassff.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/bypassff.inc          ;         ;
+; altshift.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/24.1std/quartus/quartus/libraries/megafunctions/altshift.inc          ;         ;
+; db/mult_pgt.tdf                  ; yes             ; Auto-Generated Megafunction  ; C:/Users/nahiyan/Downloads/loopback_project/loopback_project/db/mult_pgt.tdf            ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimated Total logic elements              ; 24,186         ;
+;                                             ;                ;
+; Total combinational functions               ; 11402          ;
+; Logic element usage by number of LUT inputs ;                ;
+;     -- 4 input functions                    ; 10787          ;
+;     -- 3 input functions                    ; 249            ;
+;     -- <=2 input functions                  ; 366            ;
+;                                             ;                ;
+; Logic elements by mode                      ;                ;
+;     -- normal mode                          ; 11136          ;
+;     -- arithmetic mode                      ; 266            ;
+;                                             ;                ;
+; Total registers                             ; 13711          ;
+;     -- Dedicated logic registers            ; 13711          ;
+;     -- I/O registers                        ; 0              ;
+;                                             ;                ;
+; I/O pins                                    ; 83             ;
+; Total memory bits                           ; 5120           ;
+;                                             ;                ;
+; Embedded Multiplier 9-bit elements          ; 4              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 13731          ;
+; Total fan-out                               ; 85970          ;
+; Average fan-out                             ; 3.40           ;
++---------------------------------------------+----------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------+-------------------+--------------+
+; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                      ; Entity Name       ; Library Name ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------+-------------------+--------------+
+; |xdp_loopback_test                        ; 11402 (230)         ; 13711 (139)               ; 5120        ; 4            ; 0       ; 2         ; 83   ; 0            ; |xdp_loopback_test                                                                       ; xdp_loopback_test ; work         ;
+;    |burst_fifo:u_fifo|                    ; 68 (68)             ; 82 (82)                   ; 5120        ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|burst_fifo:u_fifo                                                     ; burst_fifo        ; work         ;
+;       |altsyncram:mem_rtl_0|              ; 0 (0)               ; 0 (0)                     ; 5120        ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|burst_fifo:u_fifo|altsyncram:mem_rtl_0                                ; altsyncram        ; work         ;
+;          |altsyncram_uvg1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 5120        ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|burst_fifo:u_fifo|altsyncram:mem_rtl_0|altsyncram_uvg1:auto_generated ; altsyncram_uvg1   ; work         ;
+;    |eth_mac_bridge:u_bridge|              ; 24 (24)             ; 21 (21)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|eth_mac_bridge:u_bridge                                               ; eth_mac_bridge    ; work         ;
+;    |hex_dec:h0|                           ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h0                                                            ; hex_dec           ; work         ;
+;    |hex_dec:h1|                           ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h1                                                            ; hex_dec           ; work         ;
+;    |hex_dec:h2|                           ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h2                                                            ; hex_dec           ; work         ;
+;    |hex_dec:h3|                           ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h3                                                            ; hex_dec           ; work         ;
+;    |hex_dec:h4|                           ; 7 (7)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h4                                                            ; hex_dec           ; work         ;
+;    |hex_dec:h5|                           ; 3 (3)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |xdp_loopback_test|hex_dec:h5                                                            ; hex_dec           ; work         ;
+;    |xdp_eth_parser:u_parser|              ; 11042 (11015)       ; 13469 (13469)             ; 0           ; 4            ; 0       ; 2         ; 0    ; 0            ; |xdp_loopback_test|xdp_eth_parser:u_parser                                               ; xdp_eth_parser    ; work         ;
+;       |lpm_mult:Mult0|                    ; 27 (0)              ; 0 (0)                     ; 0           ; 4            ; 0       ; 2         ; 0    ; 0            ; |xdp_loopback_test|xdp_eth_parser:u_parser|lpm_mult:Mult0                                ; lpm_mult          ; work         ;
+;          |mult_pgt:auto_generated|        ; 27 (27)             ; 0 (0)                     ; 0           ; 4            ; 0       ; 2         ; 0    ; 0            ; |xdp_loopback_test|xdp_eth_parser:u_parser|lpm_mult:Mult0|mult_pgt:auto_generated        ; mult_pgt          ; work         ;
++-------------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+------------------------------------------------------------------------------------------+-------------------+--------------+
+Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                     ;
++----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; Name                                                                             ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
++----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; burst_fifo:u_fifo|altsyncram:mem_rtl_0|altsyncram_uvg1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 256          ; 20           ; 256          ; 20           ; 5120 ; None ;
++----------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+
+
++-----------------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary        ;
++---------------------------------------+-------------+
+; Statistic                             ; Number Used ;
++---------------------------------------+-------------+
+; Simple Multipliers (9-bit)            ; 0           ;
+; Simple Multipliers (18-bit)           ; 2           ;
+; Embedded Multiplier Blocks            ; --          ;
+; Embedded Multiplier 9-bit elements    ; 4           ;
+; Signed Embedded Multipliers           ; 0           ;
+; Unsigned Embedded Multipliers         ; 2           ;
+; Mixed Sign Embedded Multipliers       ; 0           ;
+; Variable Sign Embedded Multipliers    ; 0           ;
+; Dedicated Input Shift Register Chains ; 0           ;
++---------------------------------------+-------------+
+Note: number of Embedded Multiplier Blocks used is only available after a successful fit.
+
+
+Encoding Type:  One-Hot
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |xdp_loopback_test|xdp_eth_parser:u_parser|state                                                                                                                                                              ;
++---------------------+--------------+---------------+------------------+-------------------+-------------------+---------------------+---------------------+-----------------+----------------+-----------------+--------------+
+; Name                ; state.S_IDLE ; state.S_FLUSH ; state.S_MSG_SKIP ; state.S_DEL_ORDER ; state.S_ADD_ORDER ; state.S_XDP_MSG_HDR ; state.S_XDP_PKT_HDR ; state.S_UDP_HDR ; state.S_IP_HDR ; state.S_ETH_HDR ; state.S_INIT ;
++---------------------+--------------+---------------+------------------+-------------------+-------------------+---------------------+---------------------+-----------------+----------------+-----------------+--------------+
+; state.S_INIT        ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 0            ;
+; state.S_ETH_HDR     ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 1               ; 1            ;
+; state.S_IP_HDR      ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 1              ; 0               ; 1            ;
+; state.S_UDP_HDR     ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 1               ; 0              ; 0               ; 1            ;
+; state.S_XDP_PKT_HDR ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 1                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_XDP_MSG_HDR ; 0            ; 0             ; 0                ; 0                 ; 0                 ; 1                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_ADD_ORDER   ; 0            ; 0             ; 0                ; 0                 ; 1                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_DEL_ORDER   ; 0            ; 0             ; 0                ; 1                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_MSG_SKIP    ; 0            ; 0             ; 1                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_FLUSH       ; 0            ; 1             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
+; state.S_IDLE        ; 1            ; 0             ; 0                ; 0                 ; 0                 ; 0                   ; 0                   ; 0               ; 0              ; 0               ; 1            ;
++---------------------+--------------+---------------+------------------+-------------------+-------------------+---------------------+---------------------+-----------------+----------------+-----------------+--------------+
+
+
++------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                       ;
++-------------------------------------------------+----------------------------------------+
+; Register name                                   ; Reason for Removal                     ;
++-------------------------------------------------+----------------------------------------+
+; xdp_eth_parser:u_parser|quote_out[0..19,36..39] ; Lost fanout                            ;
+; xdp_eth_parser:u_parser|best_ask[9][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[8][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[7][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[6][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[5][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[4][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[3][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[2][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[1][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_ask[0][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[9][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[8][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[7][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[6][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[5][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[4][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[3][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[2][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[1][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|best_bid[0][19]         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|state~13                ; Lost fanout                            ;
+; xdp_eth_parser:u_parser|state~14                ; Lost fanout                            ;
+; xdp_eth_parser:u_parser|state~15                ; Lost fanout                            ;
+; xdp_eth_parser:u_parser|state~16                ; Lost fanout                            ;
+; xdp_eth_parser:u_parser|ord_price~19            ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~39            ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~59            ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~79            ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~99            ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~119           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~139           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~159           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~179           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~199           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~219           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~239           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~259           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~279           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~299           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~319           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~339           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~359           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~379           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~399           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~419           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~439           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~459           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~479           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~499           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~519           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~539           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~559           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~579           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~599           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~619           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~639           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~659           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~679           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~699           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~719           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~739           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~759           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~779           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~799           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~819           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~839           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~859           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~879           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~899           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~919           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~939           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~959           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~979           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~999           ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~1999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~2999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~3999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~4999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~5999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~6999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~7999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~8999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9019          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9039          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9059          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9079          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9099          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9119          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9139          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9159          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9179          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9199          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9219          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9239          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9259          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9279          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9299          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9319          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9339          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9359          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9379          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9399          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9419          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9439          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9459          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9479          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9499          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9519          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9539          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9559          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9579          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9599          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9619          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9639          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9659          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9679          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9699          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9719          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9739          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9759          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9779          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9799          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9819          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9839          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9859          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9879          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9899          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9919          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9939          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9959          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9979          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~9999          ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10019         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10039         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10059         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10079         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10099         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10119         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10139         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10159         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10179         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10199         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10219         ; Stuck at GND due to stuck port data_in ;
+; xdp_eth_parser:u_parser|ord_price~10239         ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 560         ;                                        ;
++-------------------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------+
+; General Register Statistics                          ;
++----------------------------------------------+-------+
+; Statistic                                    ; Value ;
++----------------------------------------------+-------+
+; Total registers                              ; 13711 ;
+; Number of registers using Synchronous Clear  ; 106   ;
+; Number of registers using Synchronous Load   ; 49    ;
+; Number of registers using Asynchronous Clear ; 160   ;
+; Number of registers using Asynchronous Load  ; 0     ;
+; Number of registers using Clock Enable       ; 13057 ;
+; Number of registers using Preset             ; 0     ;
++----------------------------------------------+-------+
+
+
++--------------------------------------------------+
+; Inverted Register Statistics                     ;
++----------------------------------------+---------+
+; Inverted Register                      ; Fan out ;
++----------------------------------------+---------+
+; eth_mac_bridge:u_bridge|in_preamble    ; 12      ;
+; Total number of inverted registers = 1 ;         ;
++----------------------------------------+---------+
+
+
++----------------------------------------------------------------------+
+; Registers Added for RAM Pass-Through Logic                           ;
++----------------------------------------+-----------------------------+
+; Register Name                          ; RAM Name                    ;
++----------------------------------------+-----------------------------+
+; burst_fifo:u_fifo|mem_rtl_0_bypass[0]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[1]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[2]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[3]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[4]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[5]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[6]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[7]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[8]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[9]  ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[10] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[11] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[12] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[13] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[14] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[15] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[16] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[17] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[18] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[19] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[20] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[21] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[22] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[23] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[24] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[25] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[26] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[27] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[28] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[29] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[30] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[31] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[32] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[33] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[34] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[35] ; burst_fifo:u_fifo|mem_rtl_0 ;
+; burst_fifo:u_fifo|mem_rtl_0_bypass[36] ; burst_fifo:u_fifo|mem_rtl_0 ;
++----------------------------------------+-----------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                     ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xdp_loopback_test|burst_fifo:u_fifo|wr_ptr[3]                 ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|xdp_pkts_parsed[8]  ;
+; 3:1                ; 16 bits   ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|add_orders_found[8] ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|init_ptr[0]         ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xdp_loopback_test|eth_mac_bridge:u_bridge|byte_out[0]         ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|vlan_b16[7]         ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[0][6]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[1][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[2][8]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[3][10]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[4][4]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[5][0]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[6][12]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[7][12]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[8][6]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_ask[9][13]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[0][1]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[1][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[2][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[3][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[4][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[5][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[6][16]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[7][1]      ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[8][15]     ;
+; 3:1                ; 19 bits   ; 38 LEs        ; 19 LEs               ; 19 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|best_bid[9][13]     ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 9 LEs                ; 9 LEs                  ; Yes        ; |xdp_loopback_test|burst_fifo:u_fifo|count[1]                  ;
+; 3:1                ; 22 bits   ; 44 LEs        ; 22 LEs               ; 22 LEs                 ; Yes        ; |xdp_loopback_test|ao_stretch[7]                               ;
+; 3:1                ; 25 bits   ; 50 LEs        ; 25 LEs               ; 25 LEs                 ; Yes        ; |xdp_loopback_test|rx_sticky_cnt[1]                            ;
+; 4:1                ; 20 bits   ; 40 LEs        ; 40 LEs               ; 0 LEs                  ; Yes        ; |xdp_loopback_test|burst_fifo:u_fifo|dout[32]                  ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|xdp_pkt_type[7]     ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_sym_idx[30]      ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_sym_idx[19]      ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_sym_idx[15]      ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_sym_idx[3]       ;
+; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_side             ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_order_id[1]      ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|do_order_id[6]      ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ip_ihl[3]           ;
+; 6:1                ; 2 bits    ; 8 LEs         ; 2 LEs                ; 6 LEs                  ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ip_ihl[2]           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|eth13[1]            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|eth12[2]            ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ip_proto[4]         ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|msg_type_lo[7]      ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|xdp_msg_left[0]     ;
+; 25:1               ; 16 bits   ; 256 LEs       ; 32 LEs               ; 224 LEs                ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|bcnt[0]             ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_price_raw[25]    ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_price_raw[19]    ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_price_raw[10]    ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |xdp_loopback_test|xdp_eth_parser:u_parser|ao_price_raw[2]     ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 2 LEs                ; 2 LEs                  ; No         ; |xdp_loopback_test|sym_val[3]                                  ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |xdp_loopback_test|burst_fifo:u_fifo|rd_ptr                    ;
+; 10:1               ; 40 bits   ; 240 LEs       ; 240 LEs              ; 0 LEs                  ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|Mux20               ;
+; 10:1               ; 40 bits   ; 240 LEs       ; 240 LEs              ; 0 LEs                  ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|Mux53               ;
+; 5:1                ; 16 bits   ; 48 LEs        ; 32 LEs               ; 16 LEs                 ; No         ; |xdp_loopback_test|disp_val[1]                                 ;
+; 3:1                ; 9 bits    ; 18 LEs        ; 18 LEs               ; 0 LEs                  ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|Selector9           ;
+; 31:1               ; 3 bits    ; 60 LEs        ; 12 LEs               ; 48 LEs                 ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|state               ;
+; 31:1               ; 3 bits    ; 60 LEs        ; 9 LEs                ; 51 LEs                 ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|state               ;
+; 31:1               ; 2 bits    ; 40 LEs        ; 12 LEs               ; 28 LEs                 ; No         ; |xdp_loopback_test|xdp_eth_parser:u_parser|state               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Source assignments for burst_fifo:u_fifo|altsyncram:mem_rtl_0|altsyncram_uvg1:auto_generated ;
++---------------------------------+--------------------+------+--------------------------------+
+; Assignment                      ; Value              ; From ; To                             ;
++---------------------------------+--------------------+------+--------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                              ;
++---------------------------------+--------------------+------+--------------------------------+
+
+
++----------------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: xdp_eth_parser:u_parser ;
++----------------+-------+---------------------------------------------+
+; Parameter Name ; Value ; Type                                        ;
++----------------+-------+---------------------------------------------+
+; ORDER_BITS     ; 9     ; Signed Integer                              ;
+; SYM_COUNT      ; 10    ; Signed Integer                              ;
+; PRICE_WIDTH    ; 20    ; Signed Integer                              ;
++----------------+-------+---------------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------+
+; Parameter Settings for User Entity Instance: burst_fifo:u_fifo ;
++----------------+-------+---------------------------------------+
+; Parameter Name ; Value ; Type                                  ;
++----------------+-------+---------------------------------------+
+; DATA_WIDTH     ; 48    ; Signed Integer                        ;
+; DEPTH          ; 256   ; Signed Integer                        ;
+; ADDR_WIDTH     ; 8     ; Signed Integer                        ;
++----------------+-------+---------------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: burst_fifo:u_fifo|altsyncram:mem_rtl_0 ;
++------------------------------------+----------------------+-----------------------------+
+; Parameter Name                     ; Value                ; Type                        ;
++------------------------------------+----------------------+-----------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                     ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                  ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE              ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                     ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                     ;
+; WIDTH_A                            ; 20                   ; Untyped                     ;
+; WIDTHAD_A                          ; 8                    ; Untyped                     ;
+; NUMWORDS_A                         ; 256                  ; Untyped                     ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                     ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                     ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                     ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                     ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                     ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                     ;
+; WIDTH_B                            ; 20                   ; Untyped                     ;
+; WIDTHAD_B                          ; 8                    ; Untyped                     ;
+; NUMWORDS_B                         ; 256                  ; Untyped                     ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                     ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                     ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                     ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                     ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                     ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                     ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                     ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                     ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                     ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                     ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                     ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                     ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                     ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                     ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                     ;
+; BYTE_SIZE                          ; 8                    ; Untyped                     ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                     ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                     ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                     ;
+; INIT_FILE                          ; UNUSED               ; Untyped                     ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                     ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                     ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                     ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                     ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                     ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                     ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                     ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                     ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                     ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                     ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                     ;
+; DEVICE_FAMILY                      ; Cyclone IV E         ; Untyped                     ;
+; CBXI_PARAMETER                     ; altsyncram_uvg1      ; Untyped                     ;
++------------------------------------+----------------------+-----------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: xdp_eth_parser:u_parser|lpm_mult:Mult0 ;
++------------------------------------------------+--------------+-------------------------+
+; Parameter Name                                 ; Value        ; Type                    ;
++------------------------------------------------+--------------+-------------------------+
+; AUTO_CARRY_CHAINS                              ; ON           ; AUTO_CARRY              ;
+; IGNORE_CARRY_BUFFERS                           ; OFF          ; IGNORE_CARRY            ;
+; AUTO_CASCADE_CHAINS                            ; ON           ; AUTO_CASCADE            ;
+; IGNORE_CASCADE_BUFFERS                         ; OFF          ; IGNORE_CASCADE          ;
+; LPM_WIDTHA                                     ; 32           ; Untyped                 ;
+; LPM_WIDTHB                                     ; 13           ; Untyped                 ;
+; LPM_WIDTHP                                     ; 45           ; Untyped                 ;
+; LPM_WIDTHR                                     ; 45           ; Untyped                 ;
+; LPM_WIDTHS                                     ; 1            ; Untyped                 ;
+; LPM_REPRESENTATION                             ; UNSIGNED     ; Untyped                 ;
+; LPM_PIPELINE                                   ; 0            ; Untyped                 ;
+; LATENCY                                        ; 0            ; Untyped                 ;
+; INPUT_A_IS_CONSTANT                            ; NO           ; Untyped                 ;
+; INPUT_B_IS_CONSTANT                            ; YES          ; Untyped                 ;
+; USE_EAB                                        ; OFF          ; Untyped                 ;
+; MAXIMIZE_SPEED                                 ; 5            ; Untyped                 ;
+; DEVICE_FAMILY                                  ; Cyclone IV E ; Untyped                 ;
+; CARRY_CHAIN                                    ; MANUAL       ; Untyped                 ;
+; APEX20K_TECHNOLOGY_MAPPER                      ; LUT          ; TECH_MAPPER_APEX20K     ;
+; DEDICATED_MULTIPLIER_CIRCUITRY                 ; AUTO         ; Untyped                 ;
+; DEDICATED_MULTIPLIER_MIN_INPUT_WIDTH_FOR_AUTO  ; 0            ; Untyped                 ;
+; DEDICATED_MULTIPLIER_MIN_OUTPUT_WIDTH_FOR_AUTO ; 0            ; Untyped                 ;
+; CBXI_PARAMETER                                 ; mult_pgt     ; Untyped                 ;
+; INPUT_A_FIXED_VALUE                            ; Bx           ; Untyped                 ;
+; INPUT_B_FIXED_VALUE                            ; Bx           ; Untyped                 ;
+; USE_AHDL_IMPLEMENTATION                        ; OFF          ; Untyped                 ;
++------------------------------------------------+--------------+-------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                   ;
++-------------------------------------------+----------------------------------------+
+; Name                                      ; Value                                  ;
++-------------------------------------------+----------------------------------------+
+; Number of entity instances                ; 1                                      ;
+; Entity Instance                           ; burst_fifo:u_fifo|altsyncram:mem_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                              ;
+;     -- WIDTH_A                            ; 20                                     ;
+;     -- NUMWORDS_A                         ; 256                                    ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                           ;
+;     -- WIDTH_B                            ; 20                                     ;
+;     -- NUMWORDS_B                         ; 256                                    ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                 ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                           ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                   ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                               ;
++-------------------------------------------+----------------------------------------+
+
+
++--------------------------------------------------------------------------------+
+; lpm_mult Parameter Settings by Entity Instance                                 ;
++---------------------------------------+----------------------------------------+
+; Name                                  ; Value                                  ;
++---------------------------------------+----------------------------------------+
+; Number of entity instances            ; 1                                      ;
+; Entity Instance                       ; xdp_eth_parser:u_parser|lpm_mult:Mult0 ;
+;     -- LPM_WIDTHA                     ; 32                                     ;
+;     -- LPM_WIDTHB                     ; 13                                     ;
+;     -- LPM_WIDTHP                     ; 45                                     ;
+;     -- LPM_REPRESENTATION             ; UNSIGNED                               ;
+;     -- INPUT_A_IS_CONSTANT            ; NO                                     ;
+;     -- INPUT_B_IS_CONSTANT            ; YES                                    ;
+;     -- USE_EAB                        ; OFF                                    ;
+;     -- DEDICATED_MULTIPLIER_CIRCUITRY ; AUTO                                   ;
+;     -- INPUT_A_FIXED_VALUE            ; Bx                                     ;
+;     -- INPUT_B_FIXED_VALUE            ; Bx                                     ;
++---------------------------------------+----------------------------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "burst_fifo:u_fifo"                                                                          ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port         ; Type   ; Severity ; Details                                                                             ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+; din[47..44]  ; Input  ; Info     ; Stuck at GND                                                                        ;
+; dout[47..44] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; dout[39..36] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; dout[19..0]  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; count        ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++--------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "xdp_eth_parser:u_parser"                                                                        ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port             ; Type   ; Severity ; Details                                                                             ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+; add_local_id     ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; add_side         ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; add_price_cents  ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; del_orders_found ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; quotes_emitted   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
+; all_add_orders   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++------------------+--------+----------+-------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------+
+; Post-Synthesis Netlist Statistics for Top Partition ;
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 83                          ;
+; cycloneiii_ff         ; 13711                       ;
+;     CLR               ; 60                          ;
+;     CLR SLD           ; 1                           ;
+;     ENA               ; 12878                       ;
+;     ENA CLR           ; 52                          ;
+;     ENA CLR SLD       ; 47                          ;
+;     ENA SCLR          ; 80                          ;
+;     SCLR              ; 25                          ;
+;     SCLR SLD          ; 1                           ;
+;     plain             ; 567                         ;
+; cycloneiii_lcell_comb ; 11408                       ;
+;     arith             ; 266                         ;
+;         2 data inputs ; 208                         ;
+;         3 data inputs ; 58                          ;
+;     normal            ; 11142                       ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 20                          ;
+;         2 data inputs ; 142                         ;
+;         3 data inputs ; 191                         ;
+;         4 data inputs ; 10787                       ;
+; cycloneiii_mac_mult   ; 2                           ;
+; cycloneiii_mac_out    ; 2                           ;
+; cycloneiii_ram_block  ; 20                          ;
+;                       ;                             ;
+; Max LUT depth         ; 17.00                       ;
+; Average LUT depth     ; 12.04                       ;
++-----------------------+-----------------------------+
+
+
++-------------------------------+
+; Elapsed Time Per Partition    ;
++----------------+--------------+
+; Partition Name ; Elapsed Time ;
++----------------+--------------+
+; Top            ; 00:00:31     ;
++----------------+--------------+
+
+
++-------------------------------+
+; Analysis & Synthesis Messages ;
++-------------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+    Info: Version 24.1std.0 Build 1077 03/04/2025 SC Lite Edition
+    Info: Processing started: Sat May 23 14:12:13 2026
+Info: Command: quartus_map --read_settings_files=on --write_settings_files=off eth_loopback_test -c eth_loopback_test
+Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
+Info (12021): Found 2 design units, including 2 entities, in source file rtl/xdp_loopback_test.v
+    Info (12023): Found entity 1: xdp_loopback_test File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 19
+    Info (12023): Found entity 2: hex_dec File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 244
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/xdp_eth_parser.v
+    Info (12023): Found entity 1: xdp_eth_parser File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 16
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/eth_mac_bridge.v
+    Info (12023): Found entity 1: eth_mac_bridge File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/eth_mac_bridge.v Line: 21
+Info (12021): Found 1 design units, including 1 entities, in source file rtl/burst_fifo.v
+    Info (12023): Found entity 1: burst_fifo File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/burst_fifo.v Line: 5
+Info (12127): Elaborating entity "xdp_loopback_test" for the top level hierarchy
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(50): truncated value with size 32 to match size of target (25) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 50
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(72): truncated value with size 32 to match size of target (25) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 72
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(75): truncated value with size 32 to match size of target (25) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 75
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(135): truncated value with size 32 to match size of target (25) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 135
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(147): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 147
+Warning (10230): Verilog HDL assignment warning at xdp_loopback_test.v(199): truncated value with size 32 to match size of target (22) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 199
+Info (12128): Elaborating entity "eth_mac_bridge" for hierarchy "eth_mac_bridge:u_bridge" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 64
+Info (12128): Elaborating entity "xdp_eth_parser" for hierarchy "xdp_eth_parser:u_parser" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 111
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(165): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 165
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(178): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 178
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(188): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 188
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(200): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 200
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(203): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 203
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(224): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 224
+Warning (10762): Verilog HDL Case Statement warning at xdp_eth_parser.v(43): can't check case statement for completeness because the case expression has too many possible states File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 43
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(260): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 260
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(266): truncated value with size 64 to match size of target (20) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 266
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(294): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 294
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(317): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 317
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(322): truncated value with size 32 to match size of target (8) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 322
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(324): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 324
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(353): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 353
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(355): truncated value with size 32 to match size of target (8) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 355
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(357): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 357
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(366): truncated value with size 32 to match size of target (8) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 366
+Warning (10230): Verilog HDL assignment warning at xdp_eth_parser.v(368): truncated value with size 32 to match size of target (16) File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 368
+Info (12128): Elaborating entity "burst_fifo" for hierarchy "burst_fifo:u_fifo" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 159
+Info (10264): Verilog HDL Case Statement information at burst_fifo.v(45): all case item expressions in this case statement are onehot File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/burst_fifo.v Line: 45
+Info (12128): Elaborating entity "hex_dec" for hierarchy "hex_dec:h0" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 228
+Warning (276020): Inferred RAM node "burst_fifo:u_fifo|mem_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
+Info (276014): Found 4 instances of uninferred RAM logic
+    Info (276007): RAM logic "xdp_eth_parser:u_parser|ord_sym" is uninferred due to asynchronous read logic File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 63
+    Info (276007): RAM logic "xdp_eth_parser:u_parser|ord_price" is uninferred due to asynchronous read logic File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 65
+    Info (276007): RAM logic "xdp_eth_parser:u_parser|ord_side" is uninferred due to asynchronous read logic File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 64
+    Info (276007): RAM logic "xdp_eth_parser:u_parser|ord_valid" is uninferred due to asynchronous read logic File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 66
+Info (19000): Inferred 1 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "burst_fifo:u_fifo|mem_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 20
+        Info (286033): Parameter WIDTHAD_A set to 8
+        Info (286033): Parameter NUMWORDS_A set to 256
+        Info (286033): Parameter WIDTH_B set to 20
+        Info (286033): Parameter WIDTHAD_B set to 8
+        Info (286033): Parameter NUMWORDS_B set to 256
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+Info (278001): Inferred 1 megafunctions from design logic
+    Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "xdp_eth_parser:u_parser|Mult0" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 266
+Info (12130): Elaborated megafunction instantiation "burst_fifo:u_fifo|altsyncram:mem_rtl_0"
+Info (12133): Instantiated megafunction "burst_fifo:u_fifo|altsyncram:mem_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "20"
+    Info (12134): Parameter "WIDTHAD_A" = "8"
+    Info (12134): Parameter "NUMWORDS_A" = "256"
+    Info (12134): Parameter "WIDTH_B" = "20"
+    Info (12134): Parameter "WIDTHAD_B" = "8"
+    Info (12134): Parameter "NUMWORDS_B" = "256"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_uvg1.tdf
+    Info (12023): Found entity 1: altsyncram_uvg1 File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/db/altsyncram_uvg1.tdf Line: 28
+Info (12130): Elaborated megafunction instantiation "xdp_eth_parser:u_parser|lpm_mult:Mult0" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 266
+Info (12133): Instantiated megafunction "xdp_eth_parser:u_parser|lpm_mult:Mult0" with the following parameter: File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_eth_parser.v Line: 266
+    Info (12134): Parameter "LPM_WIDTHA" = "32"
+    Info (12134): Parameter "LPM_WIDTHB" = "13"
+    Info (12134): Parameter "LPM_WIDTHP" = "45"
+    Info (12134): Parameter "LPM_WIDTHR" = "45"
+    Info (12134): Parameter "LPM_WIDTHS" = "1"
+    Info (12134): Parameter "LPM_REPRESENTATION" = "UNSIGNED"
+    Info (12134): Parameter "INPUT_A_IS_CONSTANT" = "NO"
+    Info (12134): Parameter "INPUT_B_IS_CONSTANT" = "YES"
+    Info (12134): Parameter "MAXIMIZE_SPEED" = "5"
+Info (12021): Found 1 design units, including 1 entities, in source file db/mult_pgt.tdf
+    Info (12023): Found entity 1: mult_pgt File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/db/mult_pgt.tdf Line: 31
+Info (13014): Ignored 59 buffer(s)
+    Info (13019): Ignored 59 SOFT buffer(s)
+Info (13000): Registers with preset signals will power-up high File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/eth_mac_bridge.v Line: 53
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "ENET0_RST_N" is stuck at VCC File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 27
+    Warning (13410): Pin "ENET0_MDC" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 28
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[10]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[11]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[12]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[13]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[14]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDR[15]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 30
+    Warning (13410): Pin "LEDG[0]" is stuck at VCC File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[1]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[2]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[3]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[4]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[5]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[6]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[7]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "LEDG[8]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 31
+    Warning (13410): Pin "HEX5[4]" is stuck at GND File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 34
+Info (286030): Timing-Driven Synthesis is running
+Info (17049): 28 registers lost all their fanouts during netlist optimizations.
+Info (144001): Generated suppressed messages file C:/Users/nahiyan/Downloads/loopback_project/loopback_project/eth_loopback_test.map.smsg
+Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
+    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
+Warning (21074): Design contains 1 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "KEY[3]" File: C:/Users/nahiyan/Downloads/loopback_project/loopback_project/rtl/xdp_loopback_test.v Line: 21
+Info (21057): Implemented 24365 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 12 input pins
+    Info (21059): Implemented 71 output pins
+    Info (21061): Implemented 24258 logic cells
+    Info (21064): Implemented 20 RAM segments
+    Info (21062): Implemented 4 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 53 warnings
+    Info: Peak virtual memory: 5102 megabytes
+    Info: Processing ended: Sat May 23 14:12:57 2026
+    Info: Elapsed time: 00:00:44
+    Info: Total CPU time (on all processors): 00:00:55
+
+
++------------------------------------------+
+; Analysis & Synthesis Suppressed Messages ;
++------------------------------------------+
+The suppressed messages can be found in C:/Users/nahiyan/Downloads/loopback_project/loopback_project/eth_loopback_test.map.smsg.
+
+

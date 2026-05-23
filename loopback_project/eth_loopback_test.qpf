@@ -1,0 +1,6 @@
+QUARTUS_VERSION = "13.1"
+DATE = "00:00:00  January 01, 2024"
+
+# Revisions
+
+PROJECT_REVISION = "eth_loopback_test"

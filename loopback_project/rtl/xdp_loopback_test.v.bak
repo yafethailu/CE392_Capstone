@@ -1,0 +1,193 @@
+// xdp_loopback_test.v
+// Intermediate test: parse real XDP frames from PCAP and display
+// the first valid quote on the seven-segment display.
+//
+// DISPLAY:
+//   HEX5:HEX4  = symbol ID (01=AAPL 02=TSLA 03=GOOGL ... 0A=PLTR)
+//   HEX3:HEX0  = bid price in cents, bottom 16 bits (hex)
+//
+// The display FREEZES on the first quote received and does not update
+// again until you press KEY[0] to reset. This lets you read the value
+// without it being overwritten.
+//
+// LEDS:
+//   LEDR[17] = 1Hz heartbeat
+//   LEDR[16] = sticky rx_active (lights 0.5s after any frame)
+//   LEDR[1]  = quote_received (latches on first quote, clears on reset)
+//   LEDR[0]  = parser alive (pulses when add_order_valid fires)
+//
+// TEST PROCEDURE:
+//   1. Flash this design (use same QSF as eth_loopback_test)
+//   2. Confirm LEDR[17] blinks
+//   3. Run: python replay_pcap.py --pcap ny4-xchi-pillar-b-20230822T133000.pcap --count 500
+//   4. Within a few seconds LEDR[1] should latch on
+//   5. HEX5:HEX4 shows symbol ID (expect 02 for TSLA if it's first)
+//   6. HEX3:HEX0 shows bid price in cents
+//      e.g. TSLA ~$239 = 23900 cents = 0x5D5C on display
+//   7. Press KEY[0] to reset and try again
+
+module xdp_loopback_test (
+    input  wire        CLOCK_50,
+    input  wire [3:0]  KEY,
+
+    input  wire        ENET0_RX_CLK,
+    input  wire        ENET0_RX_DV,
+    input  wire [3:0]  ENET0_RXD,
+    input  wire        ENET0_RX_ER,
+    output wire        ENET0_RST_N,
+    output wire        ENET0_MDC,
+
+    output wire [17:0] LEDR,
+    output wire [8:0]  LEDG,
+    output wire [6:0]  HEX0, HEX1, HEX2,
+    output wire [6:0]  HEX3, HEX4, HEX5
+);
+
+    wire clk = CLOCK_50;
+    wire rst = ~KEY[0];
+
+    assign ENET0_RST_N = 1'b1;
+    assign ENET0_MDC   = 1'b0;
+    assign LEDG        = 9'd1;
+
+    // ── Heartbeat ───────────────────────────────────────────────────────────
+    reg [24:0] hb_cnt;
+    reg        heartbeat;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin hb_cnt <= 0; heartbeat <= 0; end
+        else if (hb_cnt == 25_000_000 - 1) begin
+            hb_cnt <= 0; heartbeat <= ~heartbeat;
+        end else hb_cnt <= hb_cnt + 1;
+    end
+
+    // ── MAC bridge ──────────────────────────────────────────────────────────
+    wire [7:0] eth_byte;
+    wire       eth_valid, eth_sof, eth_eof;
+
+    eth_mac_bridge u_bridge (
+        .clk       (clk),       .rst    (rst),
+        .rx_clk    (ENET0_RX_CLK),
+        .rx_data   (ENET0_RXD), .rx_dv  (ENET0_RX_DV),
+        .rx_er     (ENET0_RX_ER),
+        .byte_out  (eth_byte),  .byte_valid(eth_valid),
+        .sof       (eth_sof),   .eof    (eth_eof)
+    );
+
+    // ── Sticky rx_active ─────────────────────────────────────────────────────
+    reg [24:0] rx_sticky_cnt;
+    reg        rx_sticky;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin rx_sticky_cnt <= 0; rx_sticky <= 0; end
+        else if (eth_eof && eth_valid) begin
+            rx_sticky_cnt <= 25_000_000 / 2 - 1;
+            rx_sticky     <= 1;
+        end else if (rx_sticky_cnt != 0)
+            rx_sticky_cnt <= rx_sticky_cnt - 1;
+        else
+            rx_sticky <= 0;
+    end
+
+    // ── XDP parser ──────────────────────────────────────────────────────────
+    wire [3:0]  add_local_id;
+    wire        add_side;
+    wire [19:0] add_price_cents;
+    wire        add_order_valid;
+    wire [43:0] quote_out;
+    wire        quote_valid;
+    wire [15:0] xdp_pkts_parsed, add_orders_found;
+    wire [15:0] del_orders_found, quotes_emitted;
+
+    xdp_eth_parser #(
+        .ORDER_BITS (11),
+        .SYM_COUNT  (10),
+        .PRICE_WIDTH(20)
+    ) u_parser (
+        .clk             (clk),       .rst            (rst),
+        .byte_in         (eth_byte),  .byte_valid     (eth_valid),
+        .sof             (eth_sof),   .eof            (eth_eof),
+        .add_local_id    (add_local_id),
+        .add_side        (add_side),
+        .add_price_cents (add_price_cents),
+        .add_order_valid (add_order_valid),
+        .quote_out       (quote_out), .quote_valid    (quote_valid),
+        .xdp_pkts_parsed (xdp_pkts_parsed),
+        .add_orders_found(add_orders_found),
+        .del_orders_found(del_orders_found),
+        .quotes_emitted  (quotes_emitted)
+    );
+
+    // ── Freeze first quote on display ────────────────────────────────────────
+    // Once quote_valid fires once, latch the symbol and bid price.
+    // Display stays frozen until KEY[0] reset.
+    reg        quote_received;
+    reg [3:0]  disp_sym;
+    reg [19:0] disp_bid;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            quote_received <= 0;
+            disp_sym       <= 0;
+            disp_bid       <= 0;
+        end else if (quote_valid && !quote_received) begin
+            // quote_out = {sym_id[3:0], bid_cents[19:0], ask_cents[19:0]}
+            disp_sym       <= quote_out[43:40];
+            disp_bid       <= quote_out[39:20];
+            quote_received <= 1;
+        end
+    end
+
+    // ── Parser alive pulse stretch (LEDR[0]) ─────────────────────────────────
+    reg [21:0] ao_stretch;
+    reg        ao_led;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin ao_stretch <= 0; ao_led <= 0; end
+        else if (add_order_valid) begin
+            ao_stretch <= 22'd2_500_000;  // 50ms pulse
+            ao_led     <= 1;
+        end else if (ao_stretch != 0)
+            ao_stretch <= ao_stretch - 1;
+        else
+            ao_led <= 0;
+    end
+
+    // ── Display ──────────────────────────────────────────────────────────────
+    // Before first quote: show "--00--" (dashes and zero to confirm alive)
+    // After first quote:  show symbol on HEX5:HEX4, bid on HEX3:HEX0
+    wire [7:0]  sym_disp  = quote_received ? {4'd0, disp_sym}     : 8'hFF;
+    wire [15:0] bid_disp  = quote_received ? disp_bid[19:4]       : 16'd0;
+
+    hex_dec h0 (.val(bid_disp[3:0]),  .seg(HEX0));
+    hex_dec h1 (.val(bid_disp[7:4]),  .seg(HEX1));
+    hex_dec h2 (.val(bid_disp[11:8]), .seg(HEX2));
+    hex_dec h3 (.val(bid_disp[15:12]),.seg(HEX3));
+    hex_dec h4 (.val(sym_disp[3:0]),  .seg(HEX4));
+
+    // HEX5: dash until quote received, then high nibble of sym (always 0)
+    assign HEX5 = quote_received ? 7'b1000000 : 7'b0111111; // 0 or dash
+
+    assign LEDR[17]   = heartbeat;
+    assign LEDR[16]   = rx_sticky;
+    assign LEDR[15:2] = 14'd0;
+    assign LEDR[1]    = quote_received;
+    assign LEDR[0]    = ao_led;
+
+endmodule
+
+module hex_dec (
+    input  wire [3:0] val,
+    output reg  [6:0] seg
+);
+    always @(*) begin
+        case (val)
+            4'h0: seg = 7'b1000000; 4'h1: seg = 7'b1111001;
+            4'h2: seg = 7'b0100100; 4'h3: seg = 7'b0110000;
+            4'h4: seg = 7'b0011001; 4'h5: seg = 7'b0010010;
+            4'h6: seg = 7'b0000010; 4'h7: seg = 7'b1111000;
+            4'h8: seg = 7'b0000000; 4'h9: seg = 7'b0010000;
+            4'hA: seg = 7'b0001000; 4'hB: seg = 7'b0000011;
+            4'hC: seg = 7'b1000110; 4'hD: seg = 7'b0100001;
+            4'hE: seg = 7'b0000110; 4'hF: seg = 7'b0001110;
+            default: seg = 7'b1111111;
+        endcase
+    end
+endmodule

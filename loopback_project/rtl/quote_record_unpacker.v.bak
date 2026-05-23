@@ -1,0 +1,19 @@
+// quote_record_unpacker.v
+// Combinational slice — no clock, no state.
+//
+// FIFO record layout (48 bits):
+//   [47:44] = 4'b0         (zero pad)
+//   [43:40] = symbol_id    (4 bits,  1=AAPL 2=TSLA ... 10=PLTR)
+//   [39:20] = bid_cents    (20 bits, price in cents, e.g. 17610 = $176.10)
+//   [19: 0] = ask_cents    (20 bits, price in cents, e.g. 17790 = $177.90)
+
+module quote_record_unpacker (
+    input  wire [47:0] record_in,
+    output wire [3:0]  symbol_id,
+    output wire [19:0] bid_cents,
+    output wire [19:0] ask_cents
+);
+    assign symbol_id = record_in[43:40];
+    assign bid_cents = record_in[39:20];
+    assign ask_cents = record_in[19: 0];
+endmodule

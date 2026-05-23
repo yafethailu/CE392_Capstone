@@ -1,0 +1,138 @@
+// eth_mac_bridge.v
+// Converts DE2-115 MII 4-bit receive interface into a clean byte stream
+// with SOF/EOF markers for xdp_eth_parser.
+// Handles: preamble stripping, nibble assembly, CDC rx_clk -> clk
+//
+// WHY TWO CLOCK DOMAINS:
+//   MII RX runs on rx_clk (25MHz for 100BASE-T, driven by PHY).
+//   FPGA logic runs on clk (50MHz CLOCK_50).
+//   All nibble assembly happens in the rx_clk domain where data is stable,
+//   then transferred to the clk domain via toggle handshake.
+//
+// WHY NOT OVERSAMPLING:
+//   Sampling rx_data with clk and edge-detecting rx_clk gives 3-cycle
+//   detection latency, by which time the 25MHz data has already changed.
+//   This was the bug in the previous version.
+
+module eth_mac_bridge (
+    input  wire        clk,
+    input  wire        rst,
+    input  wire        rx_clk,
+    input  wire [3:0]  rx_data,
+    input  wire        rx_dv,
+    input  wire        rx_er,
+    output reg  [7:0]  byte_out,
+    output reg         byte_valid,
+    output reg         sof,
+    output reg         eof
+);
+
+    // ── RX clock domain ───────────────────────────────────────────────────
+    // All nibble assembly and preamble detection runs here.
+    // rx_clk is the PHY-generated receive clock (25MHz at 100BASE-T).
+    reg        mii_phase;
+    reg [3:0]  mii_lo;
+    reg [7:0]  mii_byte;
+    reg        mii_valid, mii_sof, mii_eof;
+    reg        mii_dv_prev;
+    reg        in_preamble;
+    reg        frame_err;
+
+    always @(posedge rx_clk or posedge rst) begin
+        if (rst) begin
+            mii_phase   <= 0; mii_lo    <= 0; mii_byte   <= 0;
+            mii_valid   <= 0; mii_sof   <= 0; mii_eof    <= 0;
+            mii_dv_prev <= 0; in_preamble <= 1; frame_err <= 0;
+        end else begin
+            mii_valid <= 0; mii_sof <= 0; mii_eof <= 0;
+            mii_dv_prev <= rx_dv;
+
+            // rx_er during frame: mark as errored, discard
+            if (rx_er) frame_err <= 1;
+
+            // Rising edge of rx_dv: start of preamble
+            if (rx_dv && !mii_dv_prev) begin
+                mii_phase <= 0; in_preamble <= 1; frame_err <= 0;
+            end
+
+            // Falling edge of rx_dv: end of frame (emit EOF only if we were in data)
+            if (!rx_dv && mii_dv_prev && !in_preamble && !frame_err) begin
+                mii_eof   <= 1;
+                mii_valid <= 1;
+                in_preamble <= 1;
+            end
+
+            if (rx_dv && !rx_er) begin
+                if (!mii_phase) begin
+                    // Capture low nibble on first phase
+                    mii_lo    <= rx_data;
+                    mii_phase <= 1;
+                end else begin
+                    // Assemble byte on second phase: {hi_nibble, lo_nibble}
+                    mii_phase <= 0;
+                    if (in_preamble) begin
+                        // SFD = 0xD5 ends the preamble; first real byte follows next
+                        if ({rx_data, mii_lo} == 8'hD5) begin
+                            in_preamble <= 0;
+                            mii_sof     <= 1;   // flag SOF on the SFD byte itself
+                        end
+                    end else if (!frame_err) begin
+                        mii_byte  <= {rx_data, mii_lo};
+                        mii_valid <= 1;
+                    end
+                end
+            end
+        end
+    end
+
+    // ── Toggle handshake CDC: rx_clk → clk ────────────────────────────────
+    // For each valid byte from the RX domain, mii_toggle flips once.
+    // The clk domain detects the edge on the synchronized toggle bit and
+    // samples the accompanying data registers.
+    //
+    // Timing budget at 100BASE-T: one MII byte = 2 rx_clk cycles = 80ns.
+    // System clock period = 20ns.  3-stage sync latency = 60ns.
+    // So there are always ≥1 clk cycles between successive toggle edges —
+    // the handshake is safe at this speed.
+    reg mii_toggle;
+    always @(posedge rx_clk or posedge rst) begin
+        if (rst) mii_toggle <= 0;
+        else if (mii_valid) mii_toggle <= ~mii_toggle;
+    end
+
+    // Synchronizer chain for the toggle bit (3 FF for metastability)
+    reg [2:0] tog_sync;
+
+    // Data registers: captured in rx_clk domain, read in clk domain
+    // Two-stage resample to align with the toggle edge detection
+    reg [7:0] byte_s1, byte_s2;
+    reg       sof_s1,  sof_s2;
+    reg       eof_s1,  eof_s2;
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            tog_sync  <= 0;
+            byte_s1   <= 0; byte_s2   <= 0;
+            sof_s1    <= 0; sof_s2    <= 0;
+            eof_s1    <= 0; eof_s2    <= 0;
+            byte_out  <= 0; byte_valid <= 0;
+            sof       <= 0; eof       <= 0;
+        end else begin
+            // Synchronize toggle bit
+            tog_sync <= {tog_sync[1:0], mii_toggle};
+
+            // Resample data registers (written in rx_clk domain)
+            // Two stages gives ≥2 clk cycles settling time after a write
+            byte_s1 <= mii_byte; byte_s2 <= byte_s1;
+            sof_s1  <= mii_sof;  sof_s2  <= sof_s1;
+            eof_s1  <= mii_eof;  eof_s2  <= eof_s1;
+
+            // Edge on synchronized toggle → new byte available
+            byte_valid <= tog_sync[2] ^ tog_sync[1];
+            byte_out   <= byte_s2;
+            sof        <= sof_s2;
+            eof        <= eof_s2;
+        end
+    end
+
+endmodule

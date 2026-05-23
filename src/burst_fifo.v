@@ -1,5 +1,5 @@
 // burst_fifo.v
-// Synchronous FIFO, BRAM-inferred.  Used to absorb upstream UART microbursts.
+// Synchronous FIFO, BRAM-inferred.  Used to absorb upstream  icrobursts.
 // DATA_WIDTH = 48, DEPTH = 256 for the capstone pipeline.
 
 module burst_fifo #(
